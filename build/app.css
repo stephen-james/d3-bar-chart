@@ -1,5 +1,13 @@
 .bar {
   fill: blue; }
 
+.axis text {
+  font: 20px sans-serif !important; }
 
-/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIl9jaGFydC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUNBO0VBQ0UsQUFBTSIsImZpbGUiOiJhcHAuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiXG4uYmFyIHtcbiAgZmlsbDogYmx1ZTtcbn0iXSwic291cmNlUm9vdCI6Ii9zb3VyY2UvIn0= */
+.axis path, .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges; }
+
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIl9jaGFydC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUNBO0VBQ0UsQUFBTTs7QUFHUixBQUFNO0VBQ0osQUFBTTs7QUFHUixBQUFNLEFBQU0sQUFBTTtFQUVoQixBQUFNO0VBQ04sQUFBUTtFQUNSLEFBQWlCIiwiZmlsZSI6ImFwcC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyJcbi5iYXIge1xuICBmaWxsOiBibHVlO1xufVxuXG4uYXhpcyB0ZXh0IHtcbiAgZm9udDogMjBweCBzYW5zLXNlcmlmICFpbXBvcnRhbnQ7XG59XG5cbi5heGlzIHBhdGgsXG4uYXhpcyBsaW5lIHtcbiAgZmlsbDogbm9uZTtcbiAgc3Ryb2tlOiAjMDAwO1xuICBzaGFwZS1yZW5kZXJpbmc6IGNyaXNwRWRnZXM7XG59Il0sInNvdXJjZVJvb3QiOiIvc291cmNlLyJ9 */

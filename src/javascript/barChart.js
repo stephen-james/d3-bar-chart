@@ -126,6 +126,15 @@ BarChart.prototype = {
             .attr("class", "x axis")
             .attr("transform", "translate(0," + computed.innerHeight + ")")
             .call(xAxis);
+
+        var yAxis = d3.svg.axis()
+            .scale(yScale)
+            .orient("left");
+
+        chart.append("g")
+            .attr("class", "y axis")
+            .attr("transform", "translate(0,0)")
+            .call(yAxis);
     }
 };
 
