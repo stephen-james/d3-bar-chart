@@ -24,6 +24,9 @@ var BarChart = function BarChart(target, options, data) {
             y: {
                 field: 'value'
             }
+        },
+        behavior: {
+            transition: 1000
         }
     };
 
@@ -87,6 +90,7 @@ BarChart.prototype = {
         var self = this;
         var computed = self.computed;
         var layout = self.options.layout;
+        var behavior = self.options.behavior;
         var chart = this._createChart();
         var data = self.data;
 
@@ -117,13 +121,17 @@ BarChart.prototype = {
             .attr('width', layout.bar.width)
             .attr('class', 'bar');
 
+        if (behavior.transition) {
+            barRect = barRect
+                .attr('height', 0)
+                .attr('y', computed.innerHeight)
+                .transition()
+                .duration(behavior.transition);
+        }
+
         barRect
-            .attr('height', 0)
-            .attr('y', computed.innerHeight)
-            .transition()
-            .duration(1000)
             .attr('height', function(d) { return computed.innerHeight - yScale(self.fn.y(d))})
-            .attr('y', function(d) { return yScale(d.value); })
+            .attr('y', function(d) { return yScale(d.value); });
 
         var xAxis = d3.svg.axis()
             .scale(xScale)
