@@ -3,9 +3,6 @@ var _ = require('underscore');
 
 var BarChart = function BarChart(target, options, data) {
 
-    this.BAR_WIDTH = 20;
-    this.BAR_MARGIN = 4;
-
     this.DEFAULT_OPTIONS = {
         layout: {
             width: 400,
@@ -15,6 +12,9 @@ var BarChart = function BarChart(target, options, data) {
                 right: 30,
                 bottom: 30,
                 left: 40
+            },
+            bar: {
+                width: 40
             }
         },
         axes: {
@@ -86,6 +86,7 @@ BarChart.prototype = {
     draw: function () {
         var self = this;
         var computed = self.computed;
+        var layout = self.options.layout;
         var chart = this._createChart();
         var data = self.data;
 
@@ -107,7 +108,7 @@ BarChart.prototype = {
             .data(data)
             .enter().append('g')
             .attr('transform', function(d, i) {
-                var dx = i * (self.BAR_WIDTH + self.BAR_MARGIN);
+                var dx = (computed.innerWidth / data.length * i) + (computed.innerWidth / data.length / 2) - (layout.bar.width / 2);
                 var dy = 0;
                 return 'translate(' + dx + ', ' + dy + ')';
             });
@@ -115,25 +116,25 @@ BarChart.prototype = {
         bar.append('rect')
             .attr('y', function(d) { return yScale(d.value); })
             .attr('height', function(d) { return computed.innerHeight - yScale(self.fn.y(d))})
-            .attr('width', self.BAR_WIDTH)
+            .attr('width', layout.bar.width)
             .attr('class', 'bar');
 
         var xAxis = d3.svg.axis()
             .scale(xScale)
-            .orient("bottom");
+            .orient('bottom');
 
-        chart.append("g")
-            .attr("class", "x axis")
-            .attr("transform", "translate(0," + computed.innerHeight + ")")
+        chart.append('g')
+            .attr('class', 'x axis')
+            .attr('transform', 'translate(0,' + computed.innerHeight + ')')
             .call(xAxis);
 
         var yAxis = d3.svg.axis()
             .scale(yScale)
-            .orient("left");
+            .orient('left');
 
-        chart.append("g")
-            .attr("class", "y axis")
-            .attr("transform", "translate(0,0)")
+        chart.append('g')
+            .attr('class', 'y axis')
+            .attr('transform', 'translate(0,0)')
             .call(yAxis);
     }
 };
