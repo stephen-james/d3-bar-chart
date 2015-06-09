@@ -113,11 +113,16 @@ BarChart.prototype = {
                 return 'translate(' + dx + ', ' + dy + ')';
             });
 
-        bar.append('rect')
+        var barRect = bar.append('rect')
             .attr('y', function(d) { return yScale(d.value); })
-            .attr('height', function(d) { return computed.innerHeight - yScale(self.fn.y(d))})
             .attr('width', layout.bar.width)
             .attr('class', 'bar');
+
+        barRect
+            .attr('height', 0)
+            .transition()
+            .duration(1000)
+            .attr('height', function(d) { return computed.innerHeight - yScale(self.fn.y(d))});
 
         var xAxis = d3.svg.axis()
             .scale(xScale)
