@@ -8,5 +8,7 @@ var data = [
 ];
 
 var target = document.getElementById('chart');
-
 var chart = new BarChart(target, null, data);
+
+var target2 = document.getElementById('pieChart');
+var pieChart = new PieChart(target2, null, data);
