@@ -103,6 +103,7 @@ PieChart.prototype = {
         path.data(pie(data))
             .enter()
             .append('path')
+            .attr('class', 'pie-segment')
             .attr('d', arc)
             .attr('fill', function(d, i) {
                 return color(d.data[self.options.segments.label]);
