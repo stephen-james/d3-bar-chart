@@ -1,4 +1,5 @@
 var d3 = require('d3');
+require('d3-tip')(d3);
 var _ = require('underscore');
 
 var BarChart = function BarChart(target, options, data) {
@@ -75,7 +76,7 @@ BarChart.prototype = {
         };
 
         self.fn.x = function(d) {
-            return d[self.options.axes.y.field];
+            return d[self.options.axes.x.field];
         };
 
         self.computed = {
@@ -117,9 +118,20 @@ BarChart.prototype = {
                 return 'translate(' + dx + ', ' + dy + ')';
             });
 
+        var barTip = d3.tip()
+            .attr('class', 'bar-tooltip')
+            .offset([-10, 0])
+            .html(function(d) {
+                return '<span class="label">' + self.fn.x(d) + '</span>:&nbsp;<span class="value">' + self.fn.y(d) + '</span>';
+            });
+
+        chart.call(barTip);
+
         var barRect = bar.append('rect')
             .attr('width', layout.bar.width)
-            .attr('class', 'bar');
+            .attr('class', 'bar')
+            .on('mouseover', barTip.show)
+            .on('mouseout', barTip.hide);
 
         if (behavior.transition) {
             barRect = barRect
