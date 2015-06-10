@@ -15,8 +15,8 @@ var PieChart = function PieChart(target, options, data) {
             }
         },
         segments: {
-            measure: 'value',
-            category: 'name'
+            value: 'value',
+            label: 'name'
         },
         behavior: {
             transition: 1000
@@ -64,7 +64,7 @@ PieChart.prototype = {
         var layout = self.options.layout;
 
         self.fn.measure = function(d) {
-            return d[self.options.segments.measure];
+            return d[self.options.segments.value];
         };
 
         self.fn.x = function(d) {
@@ -105,7 +105,7 @@ PieChart.prototype = {
             .append('path')
             .attr('d', arc)
             .attr('fill', function(d, i) {
-                return color(d.data[self.options.segments.category]);
+                return color(d.data[self.options.segments.label]);
             });
     }
 };
