@@ -1,4 +1,5 @@
 var d3 = require('d3');
+require('d3-tip')(d3);
 var _ = require('underscore');
 
 var PieChart = function PieChart(target, options, data) {
@@ -63,12 +64,15 @@ PieChart.prototype = {
         var self = this;
         var layout = self.options.layout;
 
-        self.fn.measure = function(d) {
+        self.fn.value = function(d) {
             return d[self.options.segments.value];
         };
 
-        self.fn.x = function(d) {
-            return d[self.options.axes.y.field];
+        self.fn.label = function(d) {
+
+            console.log(d);
+
+            return d[self.options.segments.label];
         };
 
         var innerWidth = layout.width - layout.margin.left - layout.margin.right;
@@ -95,19 +99,30 @@ PieChart.prototype = {
         var arc = d3.svg.arc().outerRadius(computed.radius);
         var pie = d3.layout.pie();
 
-        pie.value(self.fn.measure)
+        pie.value(self.fn.value)
             .sort(null);
 
         var path = chart.selectAll('path');
+
+        var pieTip = d3.tip()
+            .attr('class', 'bar-tooltip')
+            .offset([-10, 0])
+            .html(function(d) {
+                return '<span class="label">' + self.fn.label(d.data) + '</span>:&nbsp;<span class="value">' + self.fn.value(d.data) + '</span>';
+            });
+
+        chart.call(pieTip);
 
         path.data(pie(data))
             .enter()
             .append('path')
             .attr('class', 'pie-segment')
             .attr('d', arc)
-            .attr('fill', function(d, i) {
+            .attr('fill', function(d) {
                 return color(d.data[self.options.segments.label]);
-            });
+            })
+            .on('mouseover', pieTip.show)
+            .on('mouseout', pieTip.hide);
     }
 };
 
